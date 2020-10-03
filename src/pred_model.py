@@ -13,11 +13,12 @@ def imp_df(column_names, importances):
     return df
 
 # plotting a feature importance dataframe (horizontal barchart)
-def var_imp_plot(imp_df, title):
+def var_imp_plot(imp_df, title, y_sz = 8):
     imp_df.columns = ['feature', 'feature_importance']
     sns.barplot(x = 'feature_importance', y = 'feature', data = imp_df, orient = 'h', color = 'royalblue') \
        .set_title(title, fontsize = 20)
-    plt.savefig(f'../results/{title}.png', bbox_inches='tight',dpi=100, transparent = True)
+    plt.rcParams["ytick.labelsize"] = y_sz
+    plt.savefig(f'../results/{title}.png', bbox_inches='tight',dpi=800, transparent = True)
 
 # feature importance by drop_column
 def drop_col_feat_imp(model, X_train, y_train, random_state = 42):
@@ -51,7 +52,7 @@ def permutation_feat_imp(rf, X_train, y_train):
     perm_imp_eli5 = imp_df(X_train.columns, perm.feature_importances_)
     var_imp_plot(perm_imp_eli5, 'Permutation feature importance (eli5)')
     
-def plot_ROC(rf, X_test, y_test):
+def plot_AUC(rf, X_test, y_test):
     probs = rf.predict_proba(X_test)
     preds = probs[:,1]
     fpr, tpr, threshold = metrics.roc_curve(y_test, preds)
@@ -65,7 +66,25 @@ def plot_ROC(rf, X_test, y_test):
     plt.ylabel('True Positive Rate')
     plt.title('Receiver operating characteristic')
     plt.legend(loc="lower right")
-    plt.savefig('../results/AUROC.png', bbox_inches='tight',dpi=100, transparent = True)
+    plt.savefig('../results/ROC.png', bbox_inches='tight',dpi=300, transparent = True)
+    plt.close()
+
+    precision, recall, thresholds = metrics.precision_recall_curve(y_test, preds)
+    prc_auc = metrics.auc(recall, precision)
+    plt.figure()
+    plt.plot(recall, precision, label='Random Forrest Classifier (area = %0.2f)' % prc_auc)
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
+    plt.title('Precision-Recall Curve')
+    plt.legend(loc="lower right")
+    plt.savefig('../results/PRC.png', bbox_inches='tight',dpi=300, transparent = True)
+
+    print ('F1 scores:', metrics.f1_score(y_test, preds.round()))
+
+    print ('Confusion Matrix')
+    print (metrics.confusion_matrix(y_test, preds.round()))
 
 def plot_decisionPath(estimator, X, class_name = ['Churned', 'Converted']):
     dot_data = tree.export_graphviz(estimator, out_file=None, 
