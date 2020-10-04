@@ -47,8 +47,8 @@ def sklearn_feat_imp(rf, X_train):
     var_imp_plot(base_imp, 'Default feature importance (sklearn)')
 
 # feature importance by permutation
-def permutation_feat_imp(rf, X_train, y_train):
-    perm = PermutationImportance(rf, cv = None, refit = False, n_iter = 50).fit(X_train, y_train)
+def permutation_feat_imp(rf, X, y):
+    perm = PermutationImportance(rf, cv = None, refit = False, n_iter = 50, random_state = 0).fit(X, y)
     perm_imp_eli5 = imp_df(X_train.columns, perm.feature_importances_)
     var_imp_plot(perm_imp_eli5, 'Permutation feature importance (eli5)')
     
@@ -86,6 +86,13 @@ def plot_AUC(rf, X_test, y_test):
     print ('Confusion Matrix')
     print (metrics.confusion_matrix(y_test, preds.round()))
 
+def print_metrics(y_test, y_pred):
+    print('Accuracy Score : ' + str(metrics.accuracy_score(y_test,y_pred)))
+    print('Precision Score : ' + str(metrics.precision_score(y_test,y_pred)))
+    print('Recall Score : ' + str(metrics.recall_score(y_test,y_pred)))
+    print('F1 Score : ' + str(metrics.f1_score(y_test,y_pred)))
+    print('Confusion Matrix : \n' + str(metrics.confusion_matrix(y_test,y_pred)))
+
 def plot_decisionPath(estimator, X, class_name = ['Churned', 'Converted']):
     dot_data = tree.export_graphviz(estimator, out_file=None, 
                      feature_names=list(X.columns),  
@@ -94,3 +101,4 @@ def plot_decisionPath(estimator, X, class_name = ['Churned', 'Converted']):
                      special_characters=True, precision = 0, impurity = False)  
     graph = pydotplus.graph_from_dot_data(dot_data)  
     graph.write_pdf("../results/RF_decision.pdf")
+
