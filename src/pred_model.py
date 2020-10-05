@@ -13,7 +13,7 @@ def imp_df(column_names, importances):
     return df
 
 # plotting a feature importance dataframe (horizontal barchart)
-def var_imp_plot(imp_df, title, y_sz = 8):
+def var_imp_plot(imp_df, title, y_sz = 2):
     imp_df.columns = ['feature', 'feature_importance']
     sns.barplot(x = 'feature_importance', y = 'feature', data = imp_df, orient = 'h', color = 'royalblue') \
        .set_title(title, fontsize = 20)
