@@ -1,8 +1,9 @@
 from sklearn.base import clone 
 from sklearn import metrics
+from sklearn import tree
 import pandas as pd 
 import seaborn as sns
-from sklearn import tree
+import matplotlib.pyplot as plt
 
 # function for creating a feature importance dataframe
 def imp_df(column_names, importances):
@@ -81,8 +82,9 @@ def plot_AUC(rf, X_test, y_test):
     plt.legend(loc="lower right")
     plt.savefig('../results/PRC.png', bbox_inches='tight',dpi=300, transparent = True)
 
-    print ('F1 scores:', metrics.f1_score(y_test, preds.round()))
-
+    print ('F1 score:', metrics.f1_score(y_test, preds.round()))
+    print ('accuracy:' , metrics.accuracy_score(y_test, preds.round()))
+    
     print ('Confusion Matrix')
     print (metrics.confusion_matrix(y_test, preds.round()))
 
