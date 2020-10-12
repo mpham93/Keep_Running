@@ -1,2 +1,2 @@
-# Ongo
-Predicting user conversion and churn of "The Running Experience" app
+# Keep Running
+Predicting conversion/churn of trial users for "The Running Experience" app of Ongo Science
