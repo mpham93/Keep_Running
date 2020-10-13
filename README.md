@@ -37,7 +37,7 @@ source activate KeepRunning
 ```
 #### 2. Open notebooks/Trial_Users.ipynb and edit the appropriate "data_dir" variable in the "CHANGE HERE" section. 
 
-#### 3. Check for the outputs in the result folder
+#### 3. Run the notebook and check for the outputs in the "results" folder
 =======
 
 
