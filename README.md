@@ -31,13 +31,13 @@ pip install -r requirements.txt
 --------
 ## Run tutorial
 
-### 1. Activate environment (skip it if you already activated)
+#### 1. Activate environment (skip it if you already activated)
 ```bash
 source activate KeepRunning
 ```
-### 2. Open notebooks/Trial_Users.ipynb and edit the appropriate "data_dir" variable in the CHANGE HERE section. 
+#### 2. Open notebooks/Trial_Users.ipynb and edit the appropriate "data_dir" variable in the "CHANGE HERE" section. 
 
-### 3. Check for the outputs in the result folder
+#### 3. Check for the outputs in the result folder
 =======
 
 
