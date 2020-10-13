@@ -2,7 +2,7 @@
 Predicting conversion/churn of trial users for "The Running Experience" app of Ongo Science
 
 
-# Blog post 
+## Blog post 
 [*Keep Running - reducing user churn for a running app*](https://medium.com/@minhpham_data/keep-running-c7ad1ebfb4c7)
 
 
